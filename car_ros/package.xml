@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>car_ros</name>
+  <version>0.0.0</version>
+  <description>TODO: Package description</description>
+  <maintainer email="mwl@gmail.com">lecar</maintainer>
+  <license>TODO: License declaration</license>
+
+  <!-- Build Dependencies -->
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>nav_msgs</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+
+  <!-- Run Dependencies -->
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>rospy</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+  <!-- Test Dependencies -->
+  <test_depend>python-rospy</test_depend>
+  <test_depend>python-nose</test_depend>
+
+  <export>
+    <build_type>catkin</build_type>
+  </export>
+</package>
