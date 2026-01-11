@@ -25,9 +25,6 @@ echo -e "${GREEN}Starting tmux session '$SESSION_NAME'...${NC}"
 tmux new-session -d -s "$SESSION_NAME" "
     cd \"$PROJECT_ROOT\" && \
     python3 \"$SCRIPT_PATH\" \
-        --data_name data_large_multi \
-        --mpc \
-        --cuda
     EXIT_CODE=\$?
     echo
     echo -e \"${GREEN}Training finished with exit code \$EXIT_CODE${NC}\"

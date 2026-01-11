@@ -1,0 +1,23 @@
+# params.yaml
+sim:
+  type: "numerical"  # or "unity"
+  num_cars: 2
+  vis: true
+  numerical:
+    trajectory_type: "params-num.yaml"
+  unity:
+    trajectory_type: "sim_params/params.yaml"
+
+car_dynamics:
+  LF: 0.12
+  LR: 0.24
+  L: 0.36
+  DT: 0.1
+  DT_torch: 0.1
+  DELAY: 1
+  H: 8
+  i_start: 30
+  EP_LEN: 500
+
+mpc:
+  enabled: true

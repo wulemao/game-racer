@@ -1,9 +1,9 @@
-logs/*
+/logs/
 
-car_ros/data/*
-car_ros/p_models/*
-car_ros/p_models_rel/*
-car_ros/q_models/*
-car_ros/q_models_rel/*
+/car_ros/data/
+/car_ros/p_models/
+/car_ros/p_models_rel/
+/car_ros/q_models/
+/car_ros/q_models_rel/
 
 __pycache__/

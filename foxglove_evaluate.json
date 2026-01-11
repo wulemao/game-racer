@@ -1,0 +1,198 @@
+{
+    "configById": {
+      "3D!1xtec2q": {
+        "cameraState": {
+          "perspective": true,
+          "distance": 30.0,
+          "phi": 60.0,
+          "thetaOffset": 45.0,
+          "targetOffset": [0, 0, 0],
+          "target": [0, 0, 0],
+          "targetOrientation": [0, 0, 0, 1],
+          "fovy": 45,
+          "near": 0.5,
+          "far": 5000
+        },
+        "followMode": "follow-pose",
+        "followTf": "map",
+        "scene": {},
+        "transforms": {},
+        "topics": {
+          "/left_boundary": {
+            "visible": true,
+            "lineWidth": 0.1,
+            "color": "#ffffff"
+          },
+          "/right_boundary": {
+            "visible": true,
+            "lineWidth": 0.1,
+            "color": "#ffffff"
+          },
+          "/raceline": {
+            "visible": true,
+            "lineWidth": 0.05,
+            "gradient": ["#00ff00", "#ccff00"]
+          },
+          "/waypoint_list": {
+            "visible": false
+          },
+          
+          "// Ego Car (Car 0) - Red Theme": {},
+          "/pose": {
+            "visible": true,
+            "axisScale": 0.8,
+            "color": "#ff0000"
+          },
+          "/body": {
+            "visible": true,
+            "color": "#ff4d4d",
+            "lineWidth": 0.05
+          },
+          "/ref_trajectory": {
+            "visible": true,
+            "lineWidth": 0.05,
+            "gradient": ["#ff0000", "#800000"]
+          },
+          
+          "// Opponent 1 (Car 1) - Blue Theme": {},
+          "/pose_1": {
+            "visible": true,
+            "axisScale": 0.8,
+            "color": "#0000ff"
+          },
+          "/body_1": {
+            "visible": true,
+            "color": "#4d4dff",
+            "lineWidth": 0.05
+          },
+          "/ref_trajectory_1": {
+            "visible": true,
+            "lineWidth": 0.05,
+            "gradient": ["#0000ff", "#000080"]
+          }
+        },
+        "layers": {
+          "grid": {
+            "visible": true,
+            "frameLocked": true,
+            "label": "Grid",
+            "instanceId": "grid",
+            "layerId": "foxglove.Grid",
+            "divisions": 20,
+            "lineWidth": 1,
+            "color": "#248eff40",
+            "position": [0, 0, 0],
+            "rotation": [0, 0, 0],
+            "order": 1,
+            "size": 100
+          }
+        },
+        "publish": {
+          "type": "point",
+          "poseTopic": "/move_base_simple/goal",
+          "pointTopic": "/clicked_point",
+          "poseEstimateTopic": "/initialpose",
+          "poseEstimateXDeviation": 0.5,
+          "poseEstimateYDeviation": 0.5,
+          "poseEstimateThetaDeviation": 0.26
+        }
+      },
+      "Gauge!steer_ego": {
+        "path": "/steer.data",
+        "title": "Ego Steer",
+        "minValue": -1,
+        "maxValue": 1,
+        "colorMap": "red-yellow-green",
+        "colorMode": "colormap",
+        "gradient": ["#0000ff", "#ff00ff"],
+        "reverse": false
+      },
+      "Gauge!throttle_ego": {
+        "path": "/throttle.data",
+        "title": "Ego Throttle",
+        "minValue": 0,
+        "maxValue": 1,
+        "colorMap": "turbo",
+        "colorMode": "colormap",
+        "gradient": ["#0000ff", "#ff00ff"],
+        "reverse": false
+      },
+      "Plot!velocity_compare": {
+        "title": "Velocity Comparison (vx)",
+        "paths": [
+          {
+            "timestampMethod": "receiveTime",
+            "value": "/odom.twist.twist.linear.x",
+            "enabled": true,
+            "label": "Ego Speed",
+            "color": "#ff4d4d"
+          },
+          {
+            "timestampMethod": "receiveTime",
+            "value": "/odom_1.twist.twist.linear.x",
+            "enabled": true,
+            "label": "Opp1 Speed",
+            "color": "#4d4dff"
+          }
+        ],
+        "showXAxisLabels": true,
+        "showYAxisLabels": true,
+        "showLegend": true,
+        "legendDisplay": "top",
+        "showPlotValuesInLegend": true,
+        "isSynced": true,
+        "xAxisVal": "timestamp",
+        "sidebarDimension": 200
+      },
+      "Plot!lateral_error_proxy": {
+          "title": "Lateral Velocity (vy) - Stability",
+          "paths": [
+            {
+              "timestampMethod": "receiveTime",
+              "value": "/odom.twist.twist.linear.y",
+              "enabled": true,
+              "label": "Ego Vy",
+              "color": "#ffaa00"
+            },
+            {
+              "timestampMethod": "receiveTime",
+              "value": "/odom_1.twist.twist.linear.y",
+              "enabled": true,
+              "label": "Opp1 Vy",
+              "color": "#00aaff"
+            }
+          ],
+          "showXAxisLabels": true,
+          "showYAxisLabels": true,
+          "showLegend": true
+      }
+    },
+    "globalVariables": {},
+    "userNodes": {},
+    "playbackConfig": {
+      "speed": 1
+    },
+    "layout": {
+      "first": {
+        "first": "3D!1xtec2q",
+        "second": {
+          "first": "Plot!velocity_compare",
+          "second": {
+              "first": "Plot!lateral_error_proxy",
+              "second": {
+                  "first": "Gauge!steer_ego",
+                  "second": "Gauge!throttle_ego",
+                  "direction": "row"
+              },
+              "direction": "column",
+              "splitPercentage": 50
+          },
+          "direction": "column",
+          "splitPercentage": 40
+        },
+        "direction": "row",
+        "splitPercentage": 65
+      },
+      "direction": "column"
+    }
+  }

@@ -17,7 +17,9 @@ FOXGLOVE_PORT="8765"
 ENV_SETUP="export XLA_PYTHON_CLIENT_PREALLOCATE=false; export JAX_PLATFORM_NAME=cpu; export XLA_FLAGS='--xla_force_host_platform_device_count=1'; export OMP_NUM_THREADS=1"
 ROS_SETUP_CMD="source $ROS1_SETUP; source $WS_SETUP"
 
-LOG_DIR="${HOME}/ddrx_ws/src/game-racer/logs/${SESSION_NAME}_$(date +%Y%m%d_%H%M%S)"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# LOG_DIR="${HOME}/ddrx_ws/src/ddrx-race-stack/planner/game-racer/logs/${SESSION_NAME}_$(date +%Y%m%d_%H%M%S)"
+LOG_DIR="${SCRIPT_DIR}/logs/${SESSION_NAME}_$(date +%Y%m%d_%H%M%S)"
 mkdir -p "$LOG_DIR"
 
 RED='\033[31m'

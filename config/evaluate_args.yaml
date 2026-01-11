@@ -1,0 +1,43 @@
+# Arguments previously passed via command line or scattered configs
+# Renamed to 'argparse' to reflect their nature as high-level experiment controls
+argparse:
+  # Opponent strategies list. 
+  # - ["mpc"] -> 1 Opponent (1v1)
+  # - ["mpc", "mpc"] -> 2 Opponents (1v2, Total 3 cars)
+  # - ["ibr", "ours-low_data"] -> Mixed strategies
+  opp_method: ["mpc"]
+  num_cars: 2   
+  opt_style: "grad"            # Optimization style: grad, linear, value_opt
+  mpc_enabled: true            # Master toggle for MPC controller logic (affects model filename suffix)
+  use_rel: true               # Whether to use relative models (_rel suffix)
+  save_data: true              # Whether to save recorded race data
+  max_episodes: 100
+
+# Optimization Hyperparameters (separated from style selection)
+optimization_params:
+  k_linear: 100        # Number of sample points for Grid search
+  steps_per_iter: 6    # Update steps per iteration
+  grad_rate: 0.00001   # Learning rate for gradient descent
+  warmup_steps: 450    # Optimize parameters before this time step (usually < EP_LEN)
+
+# Simulation and Environment Parameters
+sim:
+  type: "numerical"
+  # [NEW] Visualization toggle. 
+  # Set to true to publish ROS topics for Rviz (Path, Pose, Markers).
+  # Set to false to run headless (faster) without publishing topics.
+  vis: true            
+  numerical:
+    trajectory_type: "berlin_2018"
+    params_path: "params-num.yaml"
+
+# Vehicle Dynamics Parameters
+car_dynamics:
+  LF: 0.12
+  LR: 0.24
+  DT: 0.1
+  DT_torch: 0.1
+  DELAY: 1
+  H: 9
+  i_start: 30
+  EP_LEN: 500

@@ -1,0 +1,36 @@
+# config/train_p_args.yaml
+
+# ================= Data Configuration =================
+data:
+  name: "data_large_multi"
+  use_mpc_suffix: true
+  use_small_dataset: false
+  horizon_s: 350
+  # num_cars: 3 # Optional, auto-inferred if commented out
+
+# ================= Training Hyperparameters =================
+training:
+  learning_rate: 0.0001
+  batch_size: 241
+  n_iters: 100000
+  warmup_iters: 200
+  discount_factor: 0.98
+
+# ================= Model Configuration =================
+model:
+  hidden_size: 128
+  
+  # Teacher Model Base Name configuration (Dynamic Loading)
+  # The script will load {teacher_base_name}{k}.pth for car k
+  # Example: if base name is "model_multi", it loads "model_multi0.pth", "model_multi1.pth"...
+  teacher_base_name: "model_multi"
+  
+  # Pretrained Potential Model (P) to resume from (optional)
+  load_p_model_name: "none"
+
+  # Whether to use Relative Q-Models directory
+  use_rel_paths: false
+
+# ================= Hardware Configuration =================
+device:
+  use_cuda: true

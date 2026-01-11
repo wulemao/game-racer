@@ -1,0 +1,39 @@
+# config/train_q_args.yaml
+
+# ================= Data Configuration =================
+data:
+  # Dataset filename prefix (excluding .pkl suffix)
+  name: "data_large_multi"
+  
+  # Whether to use MPC generated data (filename will contain _mpc)
+  use_mpc_suffix: true
+  
+  # Whether to use partial data for quick testing (filename contains _small and only takes first 241 entries)
+  use_small_dataset: false
+  
+  # Prediction Horizon (used for calculating discounted rewards and determining _myopic/_s suffix)
+  horizon_s: 350
+  
+  # (Optional) Manually specify the number of cars. 
+  # If not set, the code attempts to infer from collect.yaml or feature dimensions.
+  # num_cars: 3 
+
+# ================= Training Hyperparameters =================
+training:
+  learning_rate: 0.001
+  batch_size: 4096
+  n_iters: 50000
+  discount_factor: 1.0
+
+# ================= Model Configuration =================
+model:
+  # Hidden layer size
+  hidden_size: 128
+  
+  # Pretrained model path (if "none", train from scratch)
+  # Path is relative to the q_models/ directory
+  load_model_name: "none"
+
+# ================= Hardware Configuration =================
+device:
+  use_cuda: true

@@ -1,0 +1,25 @@
+# config/train_q_rel_args.yaml
+
+# ================= Data Configuration =================
+data:
+  name: "data_large_multi"
+  use_mpc_suffix: true
+  use_small_dataset: false
+  horizon_s: 350
+  # num_cars: 3 # Optional, auto-inferred if commented out
+
+# ================= Training Hyperparameters =================
+training:
+  learning_rate: 0.001
+  batch_size: 4096
+  n_iters: 50000
+  discount_factor: 1.0
+
+# ================= Model Configuration =================
+model:
+  hidden_size: 128
+  load_model_name: "none"
+
+# ================= Hardware Configuration =================
+device:
+  use_cuda: true
