@@ -24,12 +24,19 @@ echo -e "${GREEN}Starting tmux session '$SESSION_NAME'...${NC}"
 
 tmux new-session -d -s "$SESSION_NAME" "
     cd \"$PROJECT_ROOT\" && \
-    python3 \"$SCRIPT_PATH\" \
+    python3 \"$SCRIPT_PATH\"
+    
     EXIT_CODE=\$?
     echo
-    echo -e \"${GREEN}Training finished with exit code \$EXIT_CODE${NC}\"
-    sleep 1
-    tmux kill-session -t \"$SESSION_NAME\"
+    if [ \$EXIT_CODE -ne 0 ]; then
+        echo -e \"${RED}Error: Training failed with exit code: \$EXIT_CODE${NC}\"
+    else
+        echo -e \"${GREEN}Training finished successfully with exit code: \$EXIT_CODE${NC}\"
+    fi
+    
+    echo -e \"${YELLOW}Note: Session kept alive for debugging. Type 'exit' to close this window.${NC}\"
+    # Keep the shell open after the command execution
+    exec bash
 "
 
 # ================== Attach and wait ==================

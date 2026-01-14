@@ -7,3 +7,5 @@
 /car_ros/q_models_rel/
 
 __pycache__/
+
+/car_ros/tmp/

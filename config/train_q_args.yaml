@@ -12,7 +12,7 @@ data:
   use_small_dataset: false
   
   # Prediction Horizon (used for calculating discounted rewards and determining _myopic/_s suffix)
-  horizon_s: 350
+  horizon_s: 150 # 350, 150, 30
   
   # (Optional) Manually specify the number of cars. 
   # If not set, the code attempts to infer from collect.yaml or feature dimensions.

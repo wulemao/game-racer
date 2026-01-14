@@ -72,20 +72,22 @@ tmux new-session -d -s "$VIZ_SESSION_NAME" "
   rosrun foxglove_bridge foxglove_bridge
 "
 
-# ================== Start training session ==================
-echo -e "${GREEN}Starting tmux session '$SESSION_NAME' (training)...${NC}"
+# ================== Start evaluating session ==================
 tmux new-session -d -s "$SESSION_NAME" "
-  set -e
-  cd \"$PROJECT_ROOT\"
-  python3 \"$SCRIPT_PATH\"
-  EXIT_CODE=\$?
-  echo
-  echo -e \"${GREEN}Training finished with exit code \$EXIT_CODE${NC}\"
-  sleep 1
-  # After training finishes, explicitly clean up visualization and roscore sessions
-  tmux kill-session -t \"$VIZ_SESSION_NAME\" 2>/dev/null || true
-  tmux kill-session -t \"$ROSCORE_SESSION_NAME\" 2>/dev/null || true
-  tmux kill-session -t \"$SESSION_NAME\" 2>/dev/null || true
+    cd \"$PROJECT_ROOT\" && \
+    python3 \"$SCRIPT_PATH\"
+    
+    EXIT_CODE=\$?
+    echo
+    if [ \$EXIT_CODE -ne 0 ]; then
+        echo -e \"${RED}Error: Process failed with exit code: \$EXIT_CODE${NC}\"
+    else
+        echo -e \"${GREEN}Process finished successfully with exit code: \$EXIT_CODE${NC}\"
+    fi
+    
+    echo -e \"${YELLOW}Note: Session kept alive for debugging. Type 'exit' to close window.${NC}\"
+    # Transition to an interactive bash shell to keep the window open
+    exec bash
 "
 
 # ================== Attach and wait ==================

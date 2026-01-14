@@ -10,6 +10,7 @@ import sys
 _THIS_DIR = os.path.dirname(os.path.realpath(__file__))
 _PROJECT_ROOT = os.path.dirname(_THIS_DIR)
 sys.path.insert(0, _PROJECT_ROOT)
+_GAME_RACER_ROOT = os.path.abspath(os.path.join(_THIS_DIR, "..", ".."))
 
 from model_arch import SimpleModel
 
@@ -18,7 +19,7 @@ from model_arch import SimpleModel
 # ============================================================
 
 parser = argparse.ArgumentParser()
-default_config = os.path.join(_PROJECT_ROOT, "config", "train_q_rel_args.yaml")
+default_config = os.path.join(_GAME_RACER_ROOT, "config", "train_q_rel_args.yaml")
 parser.add_argument("--config", default=default_config, help="Path to config yaml")
 args = parser.parse_args()
 
@@ -54,7 +55,7 @@ def wrap(x):
 def get_num_cars(project_root, explicit_val=None):
     if explicit_val: return explicit_val
     
-    collect_yaml = os.path.join(project_root, "config", "collect.yaml")
+    collect_yaml = os.path.join(project_root, "config", "collect_args.yaml")
     if os.path.exists(collect_yaml):
         with open(collect_yaml, 'r') as f:
             c = yaml.safe_load(f)
@@ -85,7 +86,7 @@ else:
 if 'num_cars' in DATA_CFG:
     num_cars = DATA_CFG['num_cars']
 else:
-    num_cars = get_num_cars(_PROJECT_ROOT)
+    num_cars = get_num_cars(_GAME_RACER_ROOT)
 
 # Infer dimensions
 feats_per_car = 13
